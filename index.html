@@ -21,11 +21,120 @@
   .highlight { color: #0078d7; font-weight: bold; }
   .divider { border-top: 1px solid #ddd; margin: 10px 0; }
   .small-note { font-size: 13px; color: #555; margin-bottom: 10px; }
+  /* ----------- 📱 MODO CELULAR (até 768px) ----------- */
+@media (max-width: 768px) {
+  body {
+    margin: 0;
+    background-color: #f2f5fa;
+    font-family: "Poppins", Arial, sans-serif;
+  }
+
+  h1 {
+    background: linear-gradient(135deg, #0078d7, #00bfff);
+    color: white;
+    padding: 18px;
+    margin: 0;
+    font-size: 20px;
+    border-bottom: 3px solid #005a9e;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .small-note {
+    display: none;
+  }
+
+  /* Esconde a tabela no celular */
+  table {
+    display: none;
+  }
+
+  /* Seção principal mobile */
+  .mobile-container {
+    padding: 15px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+
+  .card:hover {
+    transform: scale(1.02);
+  }
+
+  .card h3 {
+    margin: 0;
+    color: #0078d7;
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+
+  .status-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .status {
+    background: #e8f4ff;
+    color: #333;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .status.pago {
+    background: #c8f7c5;
+    color: #2d7a2d;
+  }
+
+  .status.nao-pago {
+    background: #ffd6d6;
+    color: #a33;
+  }
+
+  .total {
+    font-weight: bold;
+    color: #0078d7;
+    text-align: right;
+    font-size: 14px;
+  }
+
+  /* Relatório Mobile */
+  .summary {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+
+  .summary h2 {
+    text-align: center;
+    color: #0078d7;
+    font-size: 18px;
+  }
+
+  .summary ul {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+}
 </style>
 </head>
 <body>
 
 <h1>Controle de Pagamentos - Atualizado (Março a Outubro)</h1>
+<div class="mobile-container" id="mobileContainer"></div>
+  
 
 <div class="small-note">Os dados da tabela foram importados da sua planilha. Use os dropdowns para ajustar manualmente; os totais e o relatório se atualizam automaticamente.</div>
 
@@ -160,6 +269,51 @@
 
   // Inicializa o relatório ao carregar a página
   atualizarTotais();
+  // Gera versão mobile automaticamente
+function gerarCardsMobile() {
+  const container = document.getElementById("mobileContainer");
+  if (!container) return;
+  container.innerHTML = "";
+
+  dados.forEach(aluno => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const nome = document.createElement("h3");
+    nome.textContent = aluno.nome;
+    card.appendChild(nome);
+
+    const grid = document.createElement("div");
+    grid.className = "status-grid";
+
+    let total = 0;
+
+    meses.forEach(mes => {
+      const valor = aluno[mes] || "Não Pago";
+      const pago = valor.includes("Pago");
+      const div = document.createElement("div");
+      div.className = "status " + (pago ? "pago" : "nao-pago");
+      div.textContent = `${mes}: ${pago ? "Pago" : "Não Pago"}`;
+      grid.appendChild(div);
+      if (pago) total += valorMensal;
+    });
+
+    card.appendChild(grid);
+
+    const totalEl = document.createElement("div");
+    totalEl.className = "total";
+    totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
+    card.appendChild(totalEl);
+
+    container.appendChild(card);
+  });
+}
+
+// Mostra os cartões apenas no modo mobile
+if (window.innerWidth <= 768) {
+  gerarCardsMobile();
+}
+
 </script>
 
 </body>
