@@ -258,6 +258,40 @@ document.addEventListener("DOMContentLoaded", () => {
   adicionarMeses();
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const tabela = document.getElementById("tabela-pagamentos");
+
+  function mostrarMesAoLado() {
+    tabela.querySelectorAll("td[data-label]").forEach(td => {
+      const mes = td.getAttribute("data-label");
+      const select = td.querySelector("select");
+
+      if (select) {
+        // Remove texto antigo de mês
+        let spanMes = td.querySelector(".span-mes");
+        if (spanMes) spanMes.remove();
+
+        // Cria o nome do mês ao lado do status
+        spanMes = document.createElement("span");
+        spanMes.className = "span-mes";
+        spanMes.textContent = ` (${mes})`;
+        spanMes.style.color = "#555";
+        spanMes.style.fontWeight = "500";
+        spanMes.style.marginLeft = "4px";
+        spanMes.style.fontSize = "14px";
+
+        // Adiciona após o select
+        select.insertAdjacentElement("afterend", spanMes);
+      }
+    });
+  }
+
+  // Atualiza ao carregar e quando houver mudanças
+  mostrarMesAoLado();
+  tabela.addEventListener("change", mostrarMesAoLado);
+});
+</script>
 
 </body>
 </html>
