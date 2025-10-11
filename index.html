@@ -21,120 +21,11 @@
   .highlight { color: #0078d7; font-weight: bold; }
   .divider { border-top: 1px solid #ddd; margin: 10px 0; }
   .small-note { font-size: 13px; color: #555; margin-bottom: 10px; }
-  /* ----------- 📱 MODO CELULAR (até 768px) ----------- */
-@media (max-width: 768px) {
-  body {
-    margin: 0;
-    background-color: #f2f5fa;
-    font-family: "Poppins", Arial, sans-serif;
-  }
-
-  h1 {
-    background: linear-gradient(135deg, #0078d7, #00bfff);
-    color: white;
-    padding: 18px;
-    margin: 0;
-    font-size: 20px;
-    border-bottom: 3px solid #005a9e;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-
-  .small-note {
-    display: none;
-  }
-
-  /* Esconde a tabela no celular */
-  table {
-    display: none;
-  }
-
-  /* Seção principal mobile */
-  .mobile-container {
-    padding: 15px;
-  }
-
-  .card {
-    background: white;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-  }
-
-  .card:hover {
-    transform: scale(1.02);
-  }
-
-  .card h3 {
-    margin: 0;
-    color: #0078d7;
-    font-size: 17px;
-    margin-bottom: 10px;
-  }
-
-  .status-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .status {
-    background: #e8f4ff;
-    color: #333;
-    border-radius: 20px;
-    padding: 5px 10px;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .status.pago {
-    background: #c8f7c5;
-    color: #2d7a2d;
-  }
-
-  .status.nao-pago {
-    background: #ffd6d6;
-    color: #a33;
-  }
-
-  .total {
-    font-weight: bold;
-    color: #0078d7;
-    text-align: right;
-    font-size: 14px;
-  }
-
-  /* Relatório Mobile */
-  .summary {
-    margin: 20px;
-    padding: 15px;
-    border-radius: 12px;
-    background: white;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  }
-
-  .summary h2 {
-    text-align: center;
-    color: #0078d7;
-    font-size: 18px;
-  }
-
-  .summary ul {
-    margin-top: 10px;
-    font-size: 14px;
-  }
-}
 </style>
 </head>
 <body>
 
 <h1>Controle de Pagamentos - Atualizado (Março a Outubro)</h1>
-<div class="mobile-container" id="mobileContainer"></div>
-  
 
 <div class="small-note">Os dados da tabela foram importados da sua planilha. Use os dropdowns para ajustar manualmente; os totais e o relatório se atualizam automaticamente.</div>
 
@@ -169,68 +60,106 @@
 </div>
 
 <script>
-// Gera versão mobile automaticamente com base nos selects (dados atuais)
-function gerarCardsMobile() {
-  const container = document.getElementById("mobileContainer");
-  if (!container) return;
-  container.innerHTML = "";
+  const dados = [{"nome": "Ana Júlia Alves Soares", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Anne Beatricce de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Carlos Eduardo Biângulo Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Davi Asafe Trigueiro Silva", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "Pago Dinheiro", "Setembro": "", "Outubro": ""}, {"nome": "Diogo Barcelos Gonçalves", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": ""}, {"nome": "Enzo Araujo dos Santos", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Estela Klara Martins da Silva", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Isabella Giovana Amaral de Oliveira", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Isabelly Giovanna de Carvalho França", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Italo Davi Domingos Sales", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": ""}, {"nome": "João Miguel de Castro Rodrigues", "Março": "Pago PIX", "Abril": "", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "João Pedro Borges Lourenço", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "Pago Dinheiro", "Setembro": "Pago Dinheiro", "Outubro": "Pago Dinheiro"}, {"nome": "João Vitor Pereira Andrade", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Laura Coelho Maciel", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Luna Aimě de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Maria Clara Cunha Rocha*", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Maria Fernanda Ribeiro Costa", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Maria Luiza Lopes Bandeira Borba", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Marina Oliveira Rodrigues Souto", "Março": "Pago Dinheiro", "Abril": "", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Mateus Cardoso Meireles Pessoa", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Nathan Vinícius Sabóia de Andrade", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Nicolas Ed Crispim Melo", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Pedro Henrique Holanda Palmeira", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Rafaela Gonçalves da Silva", "Março": "Pago PIX", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Sophia da Silva de Brito Rocha Ramos", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Victor Barbosa de Sousa", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Isabele Boaventura", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Não Pago", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Ana Paula ", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}];
+  const meses = ["Março", "Abril", "Maio", "Junho", "Agosto", "Setembro", "Outubro"];
+  const valorMensal = 10;
 
-  const linhas = document.querySelectorAll("#paymentTable tbody tr");
-  
-  linhas.forEach(tr => {
-    const nome = tr.querySelector("td").textContent;
-    const selects = tr.querySelectorAll("select");
-    const card = document.createElement("div");
-    card.className = "card";
+  const tableBody = document.querySelector("#paymentTable tbody");
 
-    const nomeEl = document.createElement("h3");
-    nomeEl.textContent = nome;
-    card.appendChild(nomeEl);
+  function criarOption(value, selectedValue) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    if (selectedValue) {
+      if (value.trim().toLowerCase() === selectedValue.trim().toLowerCase()) {
+        option.selected = true;
+      }
+    }
+    return option;
+  }
 
-    const grid = document.createElement("div");
-    grid.className = "status-grid";
+  function normalizarValor(v) {
+    if (!v || v.toString().trim() === "") return "Não Pago";
+    const s = v.toString().trim().toLowerCase();
+    if (s.includes("pix")) return "Pago PIX";
+    if (s.includes("dinheiro")) return "Pago Dinheiro";
+    return v.toString();
+  }
 
-    let total = 0;
+  dados.forEach(aluno => {
+    const tr = document.createElement("tr");
+    const tdNome = document.createElement("td");
+    tdNome.textContent = aluno.nome;
+    tr.appendChild(tdNome);
 
-    selects.forEach((sel, i) => {
-      const mes = meses[i];
-      const valor = sel.value;
-      const pago = valor.includes("Pago");
-      const div = document.createElement("div");
-      div.className = "status " + (pago ? "pago" : "nao-pago");
-      div.textContent = `${mes}: ${pago ? "Pago" : "Não Pago"}`;
-      grid.appendChild(div);
-      if (pago) total += valorMensal;
+    meses.forEach(mes => {
+      const td = document.createElement("td");
+      const select = document.createElement("select");
+
+      ["Não Pago", "Pago PIX", "Pago Dinheiro"].forEach(opt => {
+        const option = criarOption(opt, normalizarValor(aluno[mes]));
+        select.appendChild(option);
+      });
+
+      select.addEventListener("change", atualizarTotais);
+      td.appendChild(select);
+      tr.appendChild(td);
     });
 
-    card.appendChild(grid);
+    const tdTotal = document.createElement("td");
+    tdTotal.className = "total-cell";
+    tdTotal.textContent = "R$ 0,00";
+    tr.appendChild(tdTotal);
 
-    const totalEl = document.createElement("div");
-    totalEl.className = "total";
-    totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
-    card.appendChild(totalEl);
-
-    container.appendChild(card);
+    tableBody.appendChild(tr);
   });
-}
 
-// Atualiza cards sempre que algo muda
-function atualizarCardsMobile() {
-  if (window.innerWidth <= 768) {
-    gerarCardsMobile();
+  function atualizarTotais() {
+    let totalGeral = 0;
+    const relatorio = [];
+
+    document.querySelectorAll("#paymentTable tbody tr").forEach(tr => {
+      const selects = tr.querySelectorAll("select");
+      const nomeAluno = tr.querySelector("td").textContent;
+      let totalAluno = 0;
+      const mesesPagos = [];
+
+      selects.forEach((sel, i) => {
+        if (sel.value === "Pago PIX" || sel.value === "Pago Dinheiro") {
+          totalAluno += valorMensal;
+          mesesPagos.push(meses[i]);
+        }
+      });
+
+      tr.querySelector(".total-cell").textContent = `R$ ${totalAluno.toFixed(2)}`;
+      totalGeral += totalAluno;
+
+      relatorio.push({ nome: nomeAluno, mesesPagos, qtd: mesesPagos.length });
+    });
+
+    document.getElementById("grandTotal").textContent = `R$ ${totalGeral.toFixed(2)}`;
+    document.getElementById("summaryTotal").textContent = `R$ ${totalGeral.toFixed(2)}`;
+
+    atualizarRelatorio(relatorio);
   }
-}
 
-// Recria versão mobile ao carregar
-if (window.innerWidth <= 768) {
-  gerarCardsMobile();
-}
+  function atualizarRelatorio(relatorio) {
+    const ul = document.getElementById("relatorioPagamentos");
+    ul.innerHTML = "";
 
-// Atualiza em tempo real quando muda algum select
-document.querySelectorAll("#paymentTable select").forEach(sel => {
-  sel.addEventListener("change", atualizarCardsMobile);
-});
+    relatorio.forEach(item => {
+      const li = document.createElement("li");
+      if (item.qtd === 0) {
+        li.innerHTML = `<strong>${item.nome}</strong> — Nenhum pagamento registrado.`;
+      } else {
+        li.innerHTML = `<strong>${item.nome}</strong> — Pagou: ${item.mesesPagos.join(", ")} (${item.qtd} meses)`;
+      }
+      ul.appendChild(li);
+    });
+  }
 
+  // Inicializa o relatório ao carregar a página
+  atualizarTotais();
 </script>
 
 </body>
