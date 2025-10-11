@@ -1,106 +1,45 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Controle de Pagamentos - Alunos</title>
+<title>Controle de Pagamentos - Atualizado</title>
 <style>
-  body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    margin: 30px;
-    background-color: #f4f6f9;
-    color: #333;
-  }
-
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  }
-
-  th, td {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: center;
-    font-size: 14px;
-  }
-
-  th {
-    background-color: #0078d7;
-    color: white;
-  }
-
-  select {
-    padding: 4px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  .total-cell {
-    font-weight: bold;
-    background-color: #e8f4ff;
-  }
-
-  .summary {
-    margin-top: 25px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  }
-
-  .summary h2 {
-    margin-top: 0;
-    color: #0078d7;
-  }
-
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-
-  li {
-    margin-bottom: 5px;
-  }
-
-  .highlight {
-    color: #0078d7;
-    font-weight: bold;
-  }
-
-  .divider {
-    border-top: 1px solid #ddd;
-    margin: 10px 0;
-  }
+  body { font-family: "Segoe UI", Arial, sans-serif; margin: 30px; background-color: #f4f6f9; color: #333; }
+  h1 { text-align: center; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+  th, td { border: 1px solid #ddd; padding: 6px; text-align: center; font-size: 14px; }
+  th { background-color: #0078d7; color: white; }
+  select { padding: 4px; border-radius: 4px; border: 1px solid #ccc; }
+  tr:nth-child(even) { background-color: #f9f9f9; }
+  .total-cell { font-weight: bold; background-color: #e8f4ff; }
+  .summary { margin-top: 25px; background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+  .summary h2 { margin-top: 0; color: #0078d7; }
+  ul { list-style-type: none; padding-left: 0; }
+  li { margin-bottom: 5px; }
+  .highlight { color: #0078d7; font-weight: bold; }
+  .divider { border-top: 1px solid #ddd; margin: 10px 0; }
+  .small-note { font-size: 13px; color: #555; margin-bottom: 10px; }
 </style>
-
-
 </head>
 <body>
 
-<h1>Controle de Pagamentos - Alunos (Março a Outubro)</h1>
+<h1>Controle de Pagamentos - Atualizado (Março a Outubro)</h1>
+
+<div class="small-note">Os dados da tabela foram importados da sua planilha. Use os dropdowns para ajustar manualmente; os totais e o relatório se atualizam automaticamente.</div>
 
 <table id="paymentTable">
   <thead>
     <tr>
       <th>Aluno</th>
-      <th>Mar</th>
-      <th>Abr</th>
-      <th>Mai</th>
-      <th>Jun</th>
-      <th>Jul</th>
-      <th>Ago</th>
-      <th>Out</th>
+      <th>Março</th>
+      <th>Abril</th>
+      <th>Maio</th>
+      <th>Junho</th>
+      <th>Agosto</th>
+      <th>Setembro</th>
+      <th>Outubro</th>
       <th>Total (R$)</th>
     </tr>
   </thead>
@@ -121,56 +60,44 @@
 </div>
 
 <script>
-  const alunos = [
-    "Ana Júlia Alves Soares",
-    "Anne Beatricce de Oliveira Rodrigues",
-    "Carlos Eduardo Biângulo Rodrigues",
-    "Davi Asafe Trigueiro Silva",
-    "Diogo Barcelos Gonçalves",
-    "Enzo Araujo dos Santos",
-    "Estela Klara Martins da Silva",
-    "Isabella Giovana Amaral de Oliveira",
-    "Isabelly Giovanna de Carvalho França",
-    "Italo Davi Domingos Sales",
-    "João Miguel de Castro Rodrigues",
-    "João Pedro Borges Lourenço",
-    "João Vitor Pereira Andrade",
-    "Laura Coelho Maciel",
-    "Luna Aimě de Oliveira Rodrigues",
-    "Maria Clara Cunha Rocha",
-    "Maria Fernanda Ribeiro Costa",
-    "Maria Luiza Lopes Bandeira Borba",
-    "Marina Oliveira Rodrigues Souto",
-    "Mateus Cardoso Meireles Pessoa",
-    "Nathan Vinícius Sabóia de Andrade",
-    "Nicolas Ed Crispim Melo",
-    "Pedro Henrique Holanda Palmeira",
-    "Rafaela Gonçalves da Silva",
-    "Sophia da Silva de Brito Rocha Ramos",
-    "Victor Barbosa de Sousa",
-    "Isabele Boaventura",
-    "Ana Paula"
-  ];
-
-  const meses = ["Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Out"];
+  const dados = [{"nome": "Ana Júlia Alves Soares", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Anne Beatricce de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Carlos Eduardo Biângulo Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Davi Asafe Trigueiro Silva", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "Pago Dinheiro", "Setembro": "", "Outubro": ""}, {"nome": "Diogo Barcelos Gonçalves", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": ""}, {"nome": "Enzo Araujo dos Santos", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Estela Klara Martins da Silva", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Isabella Giovana Amaral de Oliveira", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Isabelly Giovanna de Carvalho França", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Italo Davi Domingos Sales", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": ""}, {"nome": "João Miguel de Castro Rodrigues", "Março": "Pago PIX", "Abril": "", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "João Pedro Borges Lourenço", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "Pago Dinheiro", "Setembro": "Pago Dinheiro", "Outubro": "Pago Dinheiro"}, {"nome": "João Vitor Pereira Andrade", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Laura Coelho Maciel", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Luna Aimě de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Maria Clara Cunha Rocha*", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Maria Fernanda Ribeiro Costa", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Maria Luiza Lopes Bandeira Borba", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Marina Oliveira Rodrigues Souto", "Março": "Pago Dinheiro", "Abril": "", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Mateus Cardoso Meireles Pessoa", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Nathan Vinícius Sabóia de Andrade", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Nicolas Ed Crispim Melo", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Pedro Henrique Holanda Palmeira", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Rafaela Gonçalves da Silva", "Março": "Pago PIX", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Sophia da Silva de Brito Rocha Ramos", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Victor Barbosa de Sousa", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Isabele Boaventura", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Não Pago", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Ana Paula ", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}];
+  const meses = ["Março", "Abril", "Maio", "Junho", "Agosto", "Setembro", "Outubro"];
   const valorMensal = 10;
 
   const tableBody = document.querySelector("#paymentTable tbody");
 
-  alunos.forEach(aluno => {
+  function criarOption(value, selectedValue) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    if (selectedValue) {
+      if (value.trim().toLowerCase() === selectedValue.trim().toLowerCase()) {
+        option.selected = true;
+      }
+    }
+    return option;
+  }
+
+  function normalizarValor(v) {
+    if (!v || v.toString().trim() === "") return "Não Pago";
+    const s = v.toString().trim().toLowerCase();
+    if (s.includes("pix")) return "Pago PIX";
+    if (s.includes("dinheiro")) return "Pago Dinheiro";
+    return v.toString();
+  }
+
+  dados.forEach(aluno => {
     const tr = document.createElement("tr");
     const tdNome = document.createElement("td");
-    tdNome.textContent = aluno;
+    tdNome.textContent = aluno.nome;
     tr.appendChild(tdNome);
 
-    meses.forEach(() => {
+    meses.forEach(mes => {
       const td = document.createElement("td");
       const select = document.createElement("select");
 
       ["Não Pago", "Pago PIX", "Pago Dinheiro"].forEach(opt => {
-        const option = document.createElement("option");
-        option.value = opt;
-        option.textContent = opt;
+        const option = criarOption(opt, normalizarValor(aluno[mes]));
         select.appendChild(option);
       });
 
@@ -207,11 +134,7 @@
       tr.querySelector(".total-cell").textContent = `R$ ${totalAluno.toFixed(2)}`;
       totalGeral += totalAluno;
 
-      relatorio.push({
-        nome: nomeAluno,
-        mesesPagos,
-        qtd: mesesPagos.length
-      });
+      relatorio.push({ nome: nomeAluno, mesesPagos, qtd: mesesPagos.length });
     });
 
     document.getElementById("grandTotal").textContent = `R$ ${totalGeral.toFixed(2)}`;
@@ -241,4 +164,3 @@
 
 </body>
 </html>
-
