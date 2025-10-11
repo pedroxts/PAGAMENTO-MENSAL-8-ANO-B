@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Controle de Pagamentos - Atualizado</title>
+<title>Controle de Pagamentos - Alunos</title>
 <style>
   body {
     font-family: "Segoe UI", Arial, sans-serif;
@@ -11,155 +11,168 @@
     background-color: #f4f6f9;
     color: #333;
   }
-  h1 { text-align: center; margin-bottom: 20px; }
-  table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-  th, td { border: 1px solid #ddd; padding: 6px; text-align: center; font-size: 14px; }
-  th { background-color: #0078d7; color: white; }
-  select { padding: 4px; border-radius: 4px; border: 1px solid #ccc; }
-  tr:nth-child(even) { background-color: #f9f9f9; }
-  .total-cell { font-weight: bold; background-color: #e8f4ff; }
-  .summary { margin-top: 25px; background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-  .summary h2 { margin-top: 0; color: #0078d7; }
-  ul { list-style-type: none; padding-left: 0; }
-  li { margin-bottom: 5px; }
-  .highlight { color: #0078d7; font-weight: bold; }
-  .divider { border-top: 1px solid #ddd; margin: 10px 0; }
-  .small-note { font-size: 13px; color: #555; margin-bottom: 10px; }
 
-  /* ===== Layout celular bonito ===== */
-  @media (max-width: 768px) {
-    tr {
-      background: #ffffff;
-      margin-bottom: 16px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      padding: 14px;
-      border: 1px solid #e2e8f0;
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    td:first-child {
-      font-weight: bold;
-      font-size: 16px;
-      color: #1e3a8a;
-      text-align: center;
-      margin-bottom: 8px;
-      border: none;
-    }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
 
-    td {
-      border: none;
-      padding: 4px 0;
-    }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+    font-size: 14px;
+  }
 
-    .mes-container {
-      background: #f9fafb;
-      border-radius: 8px;
-      margin: 6px 0;
-      padding: 6px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
+  th {
+    background-color: #0078d7;
+    color: white;
+  }
 
-    .mes-nome {
-      color: #1f2937;
-      font-weight: 600;
-      margin-right: 10px;
-    }
+  select {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
 
-    select {
-      width: 55%;
-      background: #fff;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 6px;
-    }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
 
-    .total-cell {
-      background: #e7f7ed;
-      border-radius: 8px;
-      font-weight: bold;
-      color: #166534;
-      text-align: right;
-      padding: 10px;
-      margin-top: 10px;
-    }
+  .total-cell {
+    font-weight: bold;
+    background-color: #e8f4ff;
+  }
+
+  .summary {
+    margin-top: 25px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+
+  .summary h2 {
+    margin-top: 0;
+    color: #0078d7;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  .highlight {
+    color: #0078d7;
+    font-weight: bold;
+  }
+
+  .divider {
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
   }
 </style>
 </head>
-
 <body>
-  <h1>Controle de Pagamentos - 2025</h1>
 
-  <table id="tabela-pagamentos">
-    <thead>
-      <tr>
-        <th>Aluno</th>
-        <th>Março</th>
-        <th>Abril</th>
-        <th>Maio</th>
-        <th>Junho</th>
-        <th>Agosto</th>
-        <th>Setembro</th>
-        <th>Outubro</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody id="paymentTable">
-    </tbody>
-  </table>
+<h1>Controle de Pagamentos - Alunos (Março a Outubro)</h1>
 
-  <div class="summary">
-    <h2>Relatório de Pagamentos</h2>
-    <p><strong>Total geral:</strong> <span id="summaryTotal">R$ 0,00</span></p>
-    <ul id="relatorioPagamentos"></ul>
-  </div>
+<table id="paymentTable">
+  <thead>
+    <tr>
+      <th>Aluno</th>
+      <th>Mar</th>
+      <th>Abr</th>
+      <th>Mai</th>
+      <th>Jun</th>
+      <th>Jul</th>
+      <th>Ago</th>
+      <th>Out</th>
+      <th>Total (R$)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+  <tfoot>
+    <tr>
+      <th colspan="8">TOTAL GERAL</th>
+      <th id="grandTotal">R$ 0,00</th>
+    </tr>
+  </tfoot>
+</table>
 
-  <script>
-  const dados = [
-    {"nome": "Ana Júlia Alves Soares", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""},
-    {"nome": "Anne Beatricce de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"},
-    {"nome": "Carlos Eduardo Biângulo Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}
-    // ... (restante dos alunos da sua lista)
+<div class="summary">
+  <h2>Relatório de Pagamentos</h2>
+  <ul id="relatorioPagamentos"></ul>
+  <div class="divider"></div>
+  <p><span class="highlight">Total geral arrecadado:</span> <span id="summaryTotal">R$ 0,00</span></p>
+</div>
+
+<script>
+  const alunos = [
+    "Ana Júlia Alves Soares",
+    "Anne Beatricce de Oliveira Rodrigues",
+    "Carlos Eduardo Biângulo Rodrigues",
+    "Davi Asafe Trigueiro Silva",
+    "Diogo Barcelos Gonçalves",
+    "Enzo Araujo dos Santos",
+    "Estela Klara Martins da Silva",
+    "Isabella Giovana Amaral de Oliveira",
+    "Isabelly Giovanna de Carvalho França",
+    "Italo Davi Domingos Sales",
+    "João Miguel de Castro Rodrigues",
+    "João Pedro Borges Lourenço",
+    "João Vitor Pereira Andrade",
+    "Laura Coelho Maciel",
+    "Luna Aimě de Oliveira Rodrigues",
+    "Maria Clara Cunha Rocha",
+    "Maria Fernanda Ribeiro Costa",
+    "Maria Luiza Lopes Bandeira Borba",
+    "Marina Oliveira Rodrigues Souto",
+    "Mateus Cardoso Meireles Pessoa",
+    "Nathan Vinícius Sabóia de Andrade",
+    "Nicolas Ed Crispim Melo",
+    "Pedro Henrique Holanda Palmeira",
+    "Rafaela Gonçalves da Silva",
+    "Sophia da Silva de Brito Rocha Ramos",
+    "Victor Barbosa de Sousa",
+    "Isabele Boaventura",
+    "Ana Paula"
   ];
 
-  const meses = ["Março", "Abril", "Maio", "Junho", "Agosto", "Setembro", "Outubro"];
+  const meses = ["Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Out"];
   const valorMensal = 10;
-  const tableBody = document.querySelector("#paymentTable");
 
-  function criarOption(value, selectedValue) {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = value;
-    if (selectedValue && value.trim().toLowerCase() === selectedValue.trim().toLowerCase()) {
-      option.selected = true;
-    }
-    return option;
-  }
+  const tableBody = document.querySelector("#paymentTable tbody");
 
-  function normalizarValor(v) {
-    if (!v || v.toString().trim() === "") return "Não Pago";
-    const s = v.toString().trim().toLowerCase();
-    if (s.includes("pix")) return "Pago PIX";
-    if (s.includes("dinheiro")) return "Pago Dinheiro";
-    return v.toString();
-  }
-
-  dados.forEach(aluno => {
+  alunos.forEach(aluno => {
     const tr = document.createElement("tr");
     const tdNome = document.createElement("td");
-    tdNome.textContent = aluno.nome;
+    tdNome.textContent = aluno;
     tr.appendChild(tdNome);
 
-    meses.forEach(mes => {
+    meses.forEach(() => {
       const td = document.createElement("td");
-      td.setAttribute("data-label", mes);
       const select = document.createElement("select");
+
       ["Não Pago", "Pago PIX", "Pago Dinheiro"].forEach(opt => {
-        const option = criarOption(opt, normalizarValor(aluno[mes]));
+        const option = document.createElement("option");
+        option.value = opt;
+        option.textContent = opt;
         select.appendChild(option);
       });
+
+      select.addEventListener("change", atualizarTotais);
       td.appendChild(select);
       tr.appendChild(td);
     });
@@ -176,7 +189,7 @@
     let totalGeral = 0;
     const relatorio = [];
 
-    document.querySelectorAll("#paymentTable tr").forEach(tr => {
+    document.querySelectorAll("#paymentTable tbody tr").forEach(tr => {
       const selects = tr.querySelectorAll("select");
       const nomeAluno = tr.querySelector("td").textContent;
       let totalAluno = 0;
@@ -191,45 +204,38 @@
 
       tr.querySelector(".total-cell").textContent = `R$ ${totalAluno.toFixed(2)}`;
       totalGeral += totalAluno;
-      relatorio.push({ nome: nomeAluno, mesesPagos, qtd: mesesPagos.length });
+
+      relatorio.push({
+        nome: nomeAluno,
+        mesesPagos,
+        qtd: mesesPagos.length
+      });
     });
 
+    document.getElementById("grandTotal").textContent = `R$ ${totalGeral.toFixed(2)}`;
     document.getElementById("summaryTotal").textContent = `R$ ${totalGeral.toFixed(2)}`;
+
     atualizarRelatorio(relatorio);
   }
 
   function atualizarRelatorio(relatorio) {
     const ul = document.getElementById("relatorioPagamentos");
     ul.innerHTML = "";
+
     relatorio.forEach(item => {
       const li = document.createElement("li");
-      li.innerHTML = item.qtd === 0
-        ? `<strong>${item.nome}</strong> — Nenhum pagamento registrado.`
-        : `<strong>${item.nome}</strong> — Pagou: ${item.mesesPagos.join(", ")} (${item.qtd} meses)`;
+      if (item.qtd === 0) {
+        li.innerHTML = `<strong>${item.nome}</strong> — Nenhum pagamento registrado.`;
+      } else {
+        li.innerHTML = `<strong>${item.nome}</strong> — Pagou: ${item.mesesPagos.join(", ")} (${item.qtd} meses)`;
+      }
       ul.appendChild(li);
     });
   }
 
-  // Layout celular: mostra mês antes do select
-  function aplicarLayoutCelular() {
-    document.querySelectorAll("td[data-label]").forEach(td => {
-      const mes = td.getAttribute("data-label");
-      const select = td.querySelector("select");
-      if (!select) return;
-
-      td.innerHTML = `
-        <div class="mes-container">
-          <span class="mes-nome">${mes}:</span>
-        </div>
-      `;
-      const container = td.querySelector(".mes-container");
-      container.appendChild(select);
-    });
-  }
-
+  // Inicializa o relatório ao carregar a página
   atualizarTotais();
-  aplicarLayoutCelular();
-  document.addEventListener("change", atualizarTotais);
-  </script>
+</script>
+
 </body>
 </html>
