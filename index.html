@@ -21,20 +21,8 @@
   .highlight { color: #0078d7; font-weight: bold; }
   .divider { border-top: 1px solid #ddd; margin: 10px 0; }
   .small-note { font-size: 13px; color: #555; margin-bottom: 10px; }
-  /* ========== Layout Responsivo para Celular ========== */
+  /* ===== Layout simples para celular: mês ao lado ===== */
 @media (max-width: 768px) {
-
-  body {
-    background: #f5f7fa;
-    margin: 10px;
-  }
-
-  h1 {
-    font-size: 20px;
-    color: #0b5cff;
-    margin-bottom: 12px;
-  }
-
   table, thead, tbody, th, td, tr {
     display: block;
     width: 100%;
@@ -45,84 +33,54 @@
   }
 
   tr {
-    background: #ffffff;
-    margin-bottom: 18px;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    padding: 14px;
-    border: 1px solid #e2e8f0;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    padding: 10px;
   }
 
-  /* Nome do aluno */
-  td:first-child {
-    font-weight: 700;
-    font-size: 16px;
-    color: #1f2937;
-    border: none;
-    padding-bottom: 8px;
-    text-align: center;
-  }
-
-  /* Cada mês e select */
   td {
+    border: none;
+    padding: 6px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-    border: none;
-    border-top: 1px solid #f1f5f9;
+    font-size: 14px;
   }
 
-  td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #334155;
-    flex: 1;
-    text-align: left;
-    padding-right: 10px;
+  td:first-child {
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    color: #222;
+    margin-bottom: 6px;
   }
 
   select {
-    flex: 1;
-    max-width: 55%;
-    padding: 8px;
-    font-size: 15px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background: #f9fafb;
-    color: #111827;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    width: 55%;
+    font-size: 14px;
+    padding: 4px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .mes-label {
+    color: #333;
+    font-weight: 600;
+    margin-right: 5px;
   }
 
   .total-cell {
-    background: #e6f7ed;
-    color: #065f46;
+    background: #f0f7ff;
     font-weight: bold;
     text-align: right;
-    border-radius: 8px;
-    padding: 8px 10px;
-    margin-top: 10px;
-  }
-
-  .summary {
-    background: #eef4ff;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    margin-top: 20px;
-  }
-
-  .summary h2 {
-    text-align: center;
-    color: #1e3a8a;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .highlight {
-    color: #0b5cff;
+    padding: 6px;
+    border-radius: 6px;
+    margin-top: 4px;
   }
 }
+
 </style>
 </head>
 <body>
@@ -262,6 +220,43 @@
 
   // Inicializa o relatório ao carregar a página
   atualizarTotais();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const tabela = document.getElementById("paymentTable");
+  const meses = ["Março", "Abril", "Maio", "Junho", "Agosto", "Setembro", "Outubro"];
+
+  // adiciona o nome do mês ao lado do select (somente no celular)
+  function adicionarMeses() {
+    if (window.innerWidth > 768) return; // só executa em modo celular
+
+    tabela.querySelectorAll("tbody tr").forEach(tr => {
+      const selects = tr.querySelectorAll("select");
+      selects.forEach((select, index) => {
+        const mes = meses[index];
+        if (!mes) return;
+
+        // se já tiver o mês, não duplica
+        if (select.parentElement.querySelector(".mes-label")) return;
+
+        const label = document.createElement("span");
+        label.className = "mes-label";
+        label.textContent = mes + ": ";
+
+        const container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.justifyContent = "space-between";
+
+        container.appendChild(label);
+        container.appendChild(select);
+        select.parentElement.appendChild(container);
+      });
+    });
+  }
+
+  adicionarMeses();
+});
 </script>
 
 </body>
