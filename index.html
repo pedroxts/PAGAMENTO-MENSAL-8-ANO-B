@@ -21,157 +21,32 @@
   .highlight { color: #0078d7; font-weight: bold; }
   .divider { border-top: 1px solid #ddd; margin: 10px 0; }
   .small-note { font-size: 13px; color: #555; margin-bottom: 10px; }
-/* === CSS Consolidado: Desktop + Mobile === */
+<!-- ====== Versão Celular: Mês + Pagamento ====== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Para cada linha de aluno
+  document.querySelectorAll("table tbody tr").forEach(row => {
+    const cells = row.querySelectorAll("td[data-label]");
+    cells.forEach(cell => {
+      const label = cell.getAttribute("data-label");
+      const select = cell.querySelector("select");
 
-/* Reset / Base */
-* { box-sizing: border-box; }
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  margin: 20px;
-  background-color: #f4f6f9;
-  color: #333;
-}
+      // Adiciona o texto do mês antes do select no modo celular
+      if (select && !cell.querySelector(".mes-info")) {
+        const mesInfo = document.createElement("span");
+        mesInfo.textContent = label + ": ";
+        mesInfo.className = "mes-info";
+        mesInfo.style.fontWeight = "600";
+        mesInfo.style.color = "#2c3e50";
+        mesInfo.style.marginRight = "8px";
 
-/* Cabeçalho */
-h1 { text-align: center; margin-bottom: 12px; color: #222; }
+        cell.insertBefore(mesInfo, select);
+      }
+    });
+  });
+});
+</script>
 
-/* Tabela - Desktop */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  box-shadow: 0 0 6px rgba(0,0,0,0.06);
-  border-radius: 8px;
-  overflow: hidden;
-}
-th, td {
-  border: 1px solid #e6e6e6;
-  padding: 8px 10px;
-  text-align: center;
-  font-size: 14px;
-}
-th {
-  background: #0078d7;
-  color: #fff;
-  font-weight: 600;
-}
-tr:nth-child(even) td { background: #fbfdff; }
-
-select {
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
-  font-size: 14px;
-}
-
-/* Coluna de total (desktop) */
-.total-cell {
-  font-weight: 700;
-  background: #e8f4ff;
-}
-
-/* Resumo / relatório (desktop) */
-.summary, #relatorio {
-  margin-top: 18px;
-  background: #fff;
-  padding: 14px;
-  border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.04);
-}
-.summary h2, #relatorio h2 { margin-top: 0; color: #0078d7; }
-
-/* === MODO CELULAR === */
-@media (max-width: 768px) {
-
-  body {
-    margin: 10px;
-    background: #f5f7fa;
-  }
-
-  /* Esconde cabeçalho e deixa cada linha como cartão */
-  thead { display: none; }
-  table { font-size: 15px; width: 100%; }
-  tbody, tr { display: block; }
-
-  tr {
-    display: block;
-    background: #ffffff;
-    margin: 12px 0;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
-    padding: 12px;
-    border: 1px solid #ececec;
-  }
-
-  /* Nome do aluno (primeira célula) */
-  td:first-child {
-    display: block;
-    text-align: left;
-    font-weight: 700;
-    font-size: 16px;
-    color: #1f2937;
-    padding-bottom: 8px;
-    border: none;
-  }
-
-  /* Cada "mês" como linha com label (via data-label) e valor (select) */
-  td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border: none;
-    border-top: 1px solid #f0f0f0;
-  }
-
-  td:first-of-type { border-top: none; } /* evita linha acima do nome */
-
-  td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #374151;
-    flex-basis: 55%;
-    text-align: left;
-    padding-right: 8px;
-  }
-
-  select {
-    flex-basis: 45%;
-    max-width: 48%;
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background: #fbfdff;
-    font-size: 14px;
-    color: #111827;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  }
-
-  /* Total destacado ao final do cartão */
-  .total-cell {
-    display: block;
-    margin-top: 10px;
-    background: #e6f7ed;
-    color: #065f46;
-    font-weight: 700;
-    text-align: right;
-    padding: 8px 10px;
-    border-radius: 8px;
-  }
-
-  /* Relatório */
-  #relatorio {
-    margin-top: 18px;
-    padding: 14px;
-    border-radius: 10px;
-    background: #eef4ff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-  }
-
-  #relatorio h2 { font-size: 18px; text-align: center; color: #0b5cff; }
-
-}
 </style>
 </head>
 <body>
