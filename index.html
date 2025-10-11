@@ -136,42 +136,56 @@ document.addEventListener("DOMContentLoaded", () => {
   tabela.addEventListener("change", atualizarLayoutCelular);
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const tabela = document.getElementById("tabela-pagamentos");
 
+  function atualizarLayoutCelular() {
+    tabela.querySelectorAll("td[data-label]").forEach(td => {
+      const mes = td.getAttribute("data-label");
+      const select = td.querySelector("select");
+
+      if (select) {
+        // Evita duplicar caso já tenha sido aplicado
+        if (td.querySelector(".mes-container")) return;
+
+        // Cria o contêiner do mês + select
+        const container = document.createElement("div");
+        container.className = "mes-container";
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.justifyContent = "space-between";
+        container.style.margin = "4px 0";
+        container.style.padding = "6px 8px";
+        container.style.background = "#f9fafb";
+        container.style.borderRadius = "8px";
+        container.style.boxShadow = "0 1px 3px rgba(0,0,0,0.08)";
+
+        // Cria o rótulo do mês
+        const mesLabel = document.createElement("span");
+        mesLabel.className = "mes-nome";
+        mesLabel.textContent = mes + ": ";
+        mesLabel.style.fontWeight = "600";
+        mesLabel.style.color = "#1e293b";
+        mesLabel.style.marginRight = "8px";
+
+        // Adiciona o select dentro do container
+        select.style.flex = "1";
+        container.appendChild(mesLabel);
+        container.appendChild(select);
+
+        // Limpa o conteúdo original e adiciona o container
+        td.innerHTML = "";
+        td.appendChild(container);
+      }
+    });
+  }
+
+  atualizarLayoutCelular();
+});
+</script>
+  
 <body>
-
-<h1>Controle de Pagamentos - Atualizado (Março a Outubro)</h1>
-
-<div class="small-note">Os dados da tabela foram importados da sua planilha. Use os dropdowns para ajustar manualmente; os totais e o relatório se atualizam automaticamente.</div>
-
-<table id="paymentTable">
-  <thead>
-    <tr>
-      <th>Aluno</th>
-      <th>Março</th>
-      <th>Abril</th>
-      <th>Maio</th>
-      <th>Junho</th>
-      <th>Agosto</th>
-      <th>Setembro</th>
-      <th>Outubro</th>
-      <th>Total (R$)</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-  <tfoot>
-    <tr>
-      <th colspan="8">TOTAL GERAL</th>
-      <th id="grandTotal">R$ 0,00</th>
-    </tr>
-  </tfoot>
-</table>
-
-<div class="summary">
-  <h2>Relatório de Pagamentos</h2>
-  <ul id="relatorioPagamentos"></ul>
-  <div class="divider"></div>
-  <p><span class="highlight">Total geral arrecadado:</span> <span id="summaryTotal">R$ 0,00</span></p>
-</div>
 
 <script>
   const dados = [{"nome": "Ana Júlia Alves Soares", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Anne Beatricce de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Carlos Eduardo Biângulo Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Davi Asafe Trigueiro Silva", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "Pago Dinheiro", "Setembro": "", "Outubro": ""}, {"nome": "Diogo Barcelos Gonçalves", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": ""}, {"nome": "Enzo Araujo dos Santos", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Estela Klara Martins da Silva", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Isabella Giovana Amaral de Oliveira", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Isabelly Giovanna de Carvalho França", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Italo Davi Domingos Sales", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": ""}, {"nome": "João Miguel de Castro Rodrigues", "Março": "Pago PIX", "Abril": "", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "João Pedro Borges Lourenço", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago Dinheiro", "Agosto": "Pago Dinheiro", "Setembro": "Pago Dinheiro", "Outubro": "Pago Dinheiro"}, {"nome": "João Vitor Pereira Andrade", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Laura Coelho Maciel", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Luna Aimě de Oliveira Rodrigues", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}, {"nome": "Maria Clara Cunha Rocha*", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago Dinheiro", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Maria Fernanda Ribeiro Costa", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Maria Luiza Lopes Bandeira Borba", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Marina Oliveira Rodrigues Souto", "Março": "Pago Dinheiro", "Abril": "", "Maio": "", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Mateus Cardoso Meireles Pessoa", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Nathan Vinícius Sabóia de Andrade", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Nicolas Ed Crispim Melo", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Pedro Henrique Holanda Palmeira", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Rafaela Gonçalves da Silva", "Março": "Pago PIX", "Abril": "Pago Dinheiro", "Maio": "Pago Dinheiro", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Sophia da Silva de Brito Rocha Ramos", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Victor Barbosa de Sousa", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "", "Outubro": ""}, {"nome": "Isabele Boaventura", "Março": "Pago Dinheiro", "Abril": "Pago Dinheiro", "Maio": "Não Pago", "Junho": "", "Agosto": "", "Setembro": "", "Outubro": ""}, {"nome": "Ana Paula ", "Março": "Pago PIX", "Abril": "Pago PIX", "Maio": "Pago PIX", "Junho": "Pago PIX", "Agosto": "Pago PIX", "Setembro": "Pago PIX", "Outubro": "Pago PIX"}];
